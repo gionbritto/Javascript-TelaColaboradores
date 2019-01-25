@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+    <script >
+        var listaPessoas = [
+                {indice: 1, nome: "GIovanne", sobrenome: "Britto", idade: 23, cpf: "10215551699" },
+                {indice: 2, nome: "Diogo", sobrenome: "Souza", idade: 25, cpf: "12345678900" },
+                {indice: 3, nome: "Thais", sobrenome: "Magalhaes", idade: 20, cpf: "98765432122" },
+                {indice: 4, nome: "Thais ", sobrenome: "Evangelista", idade: 26, cpf: "54365476598" },
+                {indice: 5, nome: "Nadia ", sobrenome: "Mendes", idade: 32, cpf: "6548764387" },
+                {indice: 6, nome: "Barbara", sobrenome: "Magalhaes", idade: 35, cpf: "76554398732" },
+                {indice: 7, nome: "Ione", sobrenome: "Felipe", idade: 49, cpf: "12378945685" },
+                {indice: 8, nome: "Regis", sobrenome: "Outr", idade: 39, cpf: "14725836925" },
+            ];
+       
+
+    </script>
+</head>
+<body>
+        <div class="jumbotron">
+                <h1 class="display-4">JavaScript</h1>
+                <p class="lead">Pagina com acessos dinamicos atraves de javascript e jquery</p>
+                <hr class="my-4">
+                
+              </div>
+              <div class="container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button id="btn1" class="btn btn-info">Carregar </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btn2" class="btn btn-success">Incluir </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btn3" class="btn btn-secondary">Editar </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btn4" class="btn btn-danger">Apagar </button>
+                        </div>
+                    </div>
+                </br>
+                </br>
+                </br>
+                
+                <div id="painelIncluirColaborador" style="display: none;">
+                    <h2>Incluir Colaborador</h2>
+                    <form>
+                            <div class="row">
+                              <div class="col form-group">
+                               <label for="inputEmail4">ID</label>
+                                 <input type="text" class="form-control" placeholder="ex.:5">
+                              </div>
+                              <div class="col form-group">
+                                    <label for="inputEmail4">Nome</label>
+                                <input type="text" class="form-control" placeholder="ex.:Joao Carlos">
+                              </div>
+                              <div class="col form-group">
+                                    <label for="inputEmail4">Sobrenome</label>
+                                <input type="text" class="form-control" placeholder="ex.:Da Silva">
+                              </div>
+                            </div>
+                            <div class="row">                                    
+                                    <div class="col form-group">
+                                            <label for="inputEmail4">Idade</label>
+                                      <input type="text" class="form-control" placeholder="ex.:65">
+                                    </div>
+                                    <div class="col form-group">
+                                            <label for="inputEmail4">CPF</label>
+                                      <input type="text" class="form-control" placeholder="ex.:102.654.765-98">
+                                    </div>
+                                  </div>
+                    </form>
+                    <button id="btnSalvarColaborador" class="btn btn-primary">Salvar</button>
+                    <hr>
+                </div>
+                    <div id="painelTblColaborador">
+                        <h2>Tabela Coladoradores</h2>
+                            <table id="tblColaborador" class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Sobrenome</th>
+                                        <th scope="col">Idade</th>
+                                        <th scope="col">CPF</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                    </tbody>
+                                  </table>
+                    </div>
+            </div>    
+</body>
+<script>
+  
+    $('document').ready(function(){
+        $.notify("Para carregar a tabela clique no botao CARREGAR", "info");
+        $('#painelTblColaborador').hide();
+
+        
+    });
+
+     document.getElementById('btn1').onclick = function(){
+         criaTabela();
+     }
+
+     document.getElementById('btn2').onclick = function(){
+         $('#painelIncluirColaborador').show();
+     };
+
+     function criaTabela(){
+        
+        listaPessoas.forEach(dado => {
+            var tr = '<tr>';
+            tr = tr + '<th scope="row">' + dado.indice + '</th>';
+            tr = tr + '<td>' + dado.nome + '</td>';
+            tr = tr + '<td>' + dado.sobrenome+ '</td>';
+            tr = tr + '<td>' + dado.idade + '</td>';
+            tr = tr + '<td>' + dado.cpf + '</td>';
+            tr = tr + '</tr>';
+                
+            $('#tblColaborador').find('tbody').append(tr);
+         });
+         $('#painelTblColaborador').show();
+                                     
+     }
+</script>
+</html>
