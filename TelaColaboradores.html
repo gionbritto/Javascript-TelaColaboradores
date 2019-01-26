@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
-    <script  src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+    <!-- <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script> -->
+    
     <script >
         var listaPessoas = [
                 {indice: 1, nome: "GIovanne", sobrenome: "Britto", idade: 23, cpf: "10215551699" },
@@ -25,6 +25,7 @@
     </script>
 </head>
 <body>
+ 
         <div class="jumbotron">
                 <h1 class="display-4">JavaScript</h1>
                 <p class="lead">Pagina com acessos dinamicos atraves de javascript e jquery</p>
@@ -37,7 +38,7 @@
                             <button id="btn1" class="btn btn-info">Carregar </button>
                         </div>
                         <div class="col-md-2">
-                            <button id="btn2" class="btn btn-success">Incluir </button>
+                            <button id="btn2" class="btn btn-success" data-toggle="collapse" data-target="#painelIncluirColaborador">Incluir </button>
                         </div>
                         <div class="col-md-2">
                             <button id="btn3" class="btn btn-secondary">Editar </button>
@@ -49,32 +50,41 @@
                 </br>
                 </br>
                 </br>
+
+                <!--alerta colaborador salvo-->
+                <div id="colabooradorSalvoAlert" class="alert alert-success" role="alert" style="display:none">
+                        Colaborador salvo com sucesso!
+                </div>
                 
-                <div id="painelIncluirColaborador" style="display: none;">
+                <div id="painelIncluirColaborador" class="collapse">
+                     <!--alerta colaborador salvo-->
+                <div id="colabooradorErroAlert" class="alert alert-danger" role="alert" style="display:none">
+                        Preencha todos os campos do forumlário!
+                </div>
                     <h2>Incluir Colaborador</h2>
                     <form>
-                            <div class="row">
+                            <div id="testeC" class="row">
                               <div class="col form-group">
-                               <label for="inputEmail4">ID</label>
-                                 <input type="text" class="form-control" placeholder="ex.:5">
+                               <label for="indiceSalvar">ID</label>
+                                 <input id="indiceSalvar" type="text" class="form-control" placeholder="ex.:5">
                               </div>
                               <div class="col form-group">
-                                    <label for="inputEmail4">Nome</label>
-                                <input type="text" class="form-control" placeholder="ex.:Joao Carlos">
+                                    <label for="indiceNome">Nome</label>
+                                <input id="indiceNome" type="text" class="form-control" placeholder="ex.:Joao Carlos" required>
                               </div>
                               <div class="col form-group">
-                                    <label for="inputEmail4">Sobrenome</label>
-                                <input type="text" class="form-control" placeholder="ex.:Da Silva">
+                                    <label for="indiceSobrenome">Sobrenome</label>
+                                <input id="indiceSobrenome" type="text" class="form-control" placeholder="ex.:Da Silva" required>
                               </div>
                             </div>
                             <div class="row">                                    
                                     <div class="col form-group">
-                                            <label for="inputEmail4">Idade</label>
-                                      <input type="text" class="form-control" placeholder="ex.:65">
+                                            <label for="indiceIdade">Idade</label>
+                                      <input id="indiceIdade" type="text" class="form-control" placeholder="ex.:65" required>
                                     </div>
                                     <div class="col form-group">
-                                            <label for="inputEmail4">CPF</label>
-                                      <input type="text" class="form-control" placeholder="ex.:102.654.765-98">
+                                            <label for="indiceCPF">CPF</label>
+                                      <input id="indiceCPF" type="text" class="form-control" placeholder="ex.:102.654.765-98" required>
                                     </div>
                                   </div>
                     </form>
@@ -98,40 +108,144 @@
                                     </tbody>
                                   </table>
                     </div>
-            </div>    
-</body>
-<script>
+            </div> 
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> 
+    <script src="src/fancyTable.js"></script>
+ 
+    <script>
+
   
-    $('document').ready(function(){
-        $.notify("Para carregar a tabela clique no botao CARREGAR", "info");
-        $('#painelTblColaborador').hide();
-
-        
-    });
-
-     document.getElementById('btn1').onclick = function(){
-         criaTabela();
-     }
-
-     document.getElementById('btn2').onclick = function(){
-         $('#painelIncluirColaborador').show();
-     };
-
-     function criaTabela(){
-        
-        listaPessoas.forEach(dado => {
-            var tr = '<tr>';
-            tr = tr + '<th scope="row">' + dado.indice + '</th>';
-            tr = tr + '<td>' + dado.nome + '</td>';
-            tr = tr + '<td>' + dado.sobrenome+ '</td>';
-            tr = tr + '<td>' + dado.idade + '</td>';
-            tr = tr + '<td>' + dado.cpf + '</td>';
-            tr = tr + '</tr>';
+            $('document').ready(function(){
                 
-            $('#tblColaborador').find('tbody').append(tr);
-         });
-         $('#painelTblColaborador').show();
-                                     
-     }
-</script>
+                $('#painelTblColaborador').hide();
+                        
+            });
+            
+            //chamadas
+             document.getElementById('btn1').onclick = function(){
+                 criaTabela();
+             }
+             $('#btn2').click(function(){
+                 $('#indiceSalvar').val(recuperaIndice());
+                 $('#indiceSalvar').prop('disabled', true);
+             });
+             $('#btnSalvarColaborador').click(function(){
+                if(($('#indiceNome').val() == "") ||
+                    ($('#indiceSobrenome').val() == "") ||
+                    ($('#indiceIdade').val() == "") ||
+                    ($('#indiceCPF').val() == "")){
+                        $('#colabooradorErroAlert').slideDown();
+                        setTimeout(function(){
+                            $('#colabooradorErroAlert').slideUp();
+                        },4000);
+                }
+                else{
+                    salvaColaborador();
+                }
+                 
+             });
+
+             //funcoes
+
+             function salvaColaborador(){
+
+                var colaborador = {
+                        indice: recuperaIndice(), 
+                        nome: $('#indiceNome').val(),
+                        sobrenome: $('#indiceSobrenome').val(),
+                        idade: $('#indiceIdade').val(),
+                        cpf: $('#indiceCPF').val()
+                    };
+                    inserirColaboradorLista(colaborador);
+                
+             }
+
+             function buscarColaborador(id){
+                 var colaboradorFound = listaPessoas.find(x => x.indice === id);
+
+                 return colaboradorFound;
+             }
+
+             function recuperaIndice(){
+                 var ultimoIndice;
+                 var novalista = listaPessoas;
+                 ultimoIndice = listaPessoas.length + 1;
+
+                 return ultimoIndice;
+             }
+
+              function criaTabela(){
+                
+                listaPessoas.forEach(dado => {
+                    var tr = '<tr>';
+                    tr = tr + '<th scope="row">' + dado.indice + '</th>';
+                    tr = tr + '<td>' + dado.nome + '</td>';
+                    tr = tr + '<td>' + dado.sobrenome+ '</td>';
+                    tr = tr + '<td>' + dado.idade + '</td>';
+                    tr = tr + '<td>' + dado.cpf + '</td>';
+                    tr = tr + '</tr>';
+                        
+                    $('#tblColaborador').find('tbody').append(tr);
+                 });
+                  executarPaginacao();
+                  $('#painelTblColaborador').show();
+                                             
+             }
+
+             function inserirLinhaTabela(novoColaborador){
+                console.log(novoColaborador.indice);
+                var tr = '<tr>';
+                    tr = tr + '<th scope="row">' + novoColaborador.indice + '</th>';
+                    tr = tr + '<td>' + novoColaborador.nome + '</td>';
+                    tr = tr + '<td>' + novoColaborador.sobrenome+ '</td>';
+                    tr = tr + '<td>' + novoColaborador.idade + '</td>';
+                    tr = tr + '<td>' + novoColaborador.cpf + '</td>';
+                    tr = tr + '</tr>';
+                        
+                    $('#tblColaborador').find('tbody').append(tr);
+             }
+
+             function mostraAlertaSucesso(){
+                $('#colabooradorSalvoAlert').slideDown();
+                $('#btn2').trigger('click');
+                limparCampos();
+                setTimeout(function(){
+                    $('#colabooradorSalvoAlert').slideUp();
+                    
+                },3500);
+             }
+
+             function limparCampos(){
+                    $('#indiceNome').val(""); 
+                    $('#indiceSobrenome').val("");
+                    $('#indiceIdade').val("");
+                    $('#indiceCPF').val("");
+             }
+
+             function inserirColaboradorLista(novoColaborador){
+                 listaPessoas.push(novoColaborador);
+                 inserirLinhaTabela(novoColaborador);
+                 mostraAlertaSucesso();
+             }
+
+             function executarPaginacao(){
+              $('#tblColaborador').fancyTable({
+                sortable: true,
+                pagination: true, // default: false
+                searchable: false,
+                globalSearch: true,
+                paginationClass: "btn btn-light",
+                paginationClassActive: "active",
+                pagClosest: 4,
+                perPage: 4
+              });
+            }
+
+        </script>
+</body>
 </html>
